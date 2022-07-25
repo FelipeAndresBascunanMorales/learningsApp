@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import OwnLearnings from '~/components/OwnLearnings.vue'
 const props = defineProps<{ name: string }>()
 const router = useRouter()
 const user = useUserStore()
+const user_id = user.user_id
 const { t } = useI18n()
 
 watchEffect(() => {
@@ -42,6 +44,9 @@ watchEffect(() => {
       >
         {{ t('button.back') }}
       </button>
+    </div>
+    <div>
+      <OwnLearnings :id-usuario="user_id" />
     </div>
   </div>
 </template>

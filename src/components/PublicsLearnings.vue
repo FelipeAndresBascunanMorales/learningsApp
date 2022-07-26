@@ -7,6 +7,7 @@ You can switch between the two branches.
 import { ref, watchEffect } from 'vue'
 
 const API_URL = 'https://learningsapi.azurewebsites.net/api/learnings'
+const local = 'https://localhost:7032/api/learnings'
 
 const learnings = ref(null)
 // const branches = ['main', 'v2-compat']
@@ -24,7 +25,7 @@ watchEffect(async () => {
 
 <template>
   <h1>learnings de otros estudiantes</h1>
-  <div>
+  <div id="container-card">
     <div v-for="learning in learnings" :key="learning.Id" class="card">
       <p id="name">
         <a :href="learning.Link" target="_blank">
@@ -37,9 +38,7 @@ watchEffect(async () => {
         </span>
         {{ learning.Category }}
       </p>
-      <p>
-        {{ learning.Avatar }}
-      </p>
+      <img height="16" width="16" :src="learning.favicon">
       <p>
         <span>
           Descripción
@@ -50,7 +49,13 @@ watchEffect(async () => {
         <span>
           Notas
         </span>
-        {{ learning.Note }}
+        {{ learning.Note.length }}
+      </p>
+      <p v-else>
+        <span>
+          Notas
+        </span>
+        sin notas
       </p>
     </div>
   </div>
@@ -65,11 +70,12 @@ watchEffect(async () => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 30%;
-  height: 100%;
+  width: 40%;
+  height: 300px;
   background-color: #0f0f0f;
   border-radius: 10px;
   padding: 20px;
+  margin: 1em;
 }
 .card p {
   margin: 0;
@@ -83,5 +89,19 @@ watchEffect(async () => {
 }
 .card p:nth-child(3) {
   font-size: 0.8em;
+}
+span{
+  font-weight: 600;
+  font-style: italic;
+}
+img{
+  margin: 1em;
+}
+#container-card{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 </style>

@@ -10,6 +10,6 @@ intro:
   dynamic-route: Hay mucho que aprender
   hi: ¡Hola, {name}!
   aka: También conocido como
-  whats-your-name: ¿Cómo te llamas?
-  pass: ingrese su password
+  whats-your-name: correo
+  pass: password
 not-found: No se ha encontrado

@@ -6,7 +6,7 @@ export const useUserStore = defineStore('user', () => {
    */
   const savedName = ref('')
   const password = ref('')
-  const user_id = ref('')
+  const token = ref('')
   const previousNames = ref(new Set<string>())
 
   const usedNames = computed(() => Array.from(previousNames.value))
@@ -42,12 +42,14 @@ export const useUserStore = defineStore('user', () => {
       body: JSON.stringify(user_data),
     }
     const url = 'https://learningsapi.azurewebsites.net/api/users/autenticate'
+    // const local = 'https://localhost:7032/api/users/autenticate'
+
     fetch(url, requestOptions)
       .then(response => response.json())
       .then((response) => {
-        user_id.value = response.Id
-        console.log(user_id.value)
-        return console.log(response)
+        console.log(response)
+        token.value = response.token.Result
+        return console.log(token.value)
       })
       .catch((error) => {
         console.log(user_data)
@@ -63,7 +65,7 @@ export const useUserStore = defineStore('user', () => {
     otherNames,
     savedName,
     password,
-    user_id,
+    token,
   }
 })
 

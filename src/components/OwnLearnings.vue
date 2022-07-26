@@ -6,14 +6,16 @@ You can switch between the two branches.
 <script setup>
 import { ref, watchEffect } from 'vue'
 const user = useUserStore()
+const nuevouserid = user.token
 
 // console.log(props.idUsuario)
 
-watchEffect(() => {
-  const nuevouserid = user.user_id
-})
-// console.log(nuevouserid)
-const API_URL = `https://learningsapi.azurewebsites.net/api/learnings/user/${props.idUsuario}`
+// watchEffect(() => {
+//   const nuevouserid = user.token
+// })
+console.log(nuevouserid)
+const url_local = `https://localhost:7032/api/learnings/user/${user.token}`
+const API_URL = `https://learningsapi.azurewebsites.net/api/learnings/user/${user.token}`
 
 const learnings = ref(null)
 // const branches = ['main', 'v2-compat']
@@ -39,25 +41,25 @@ watchEffect(async () => {
         </a>
       </p>
       <p id="category">
-        <span>
+        <span class="label">
           Categoria
         </span>
         {{ learning.Category }}
       </p>
       <p>
-        {{ learning.Avatar }}
+        {{ learning.favicon }}
       </p>
       <p>
-        <span>
+        <span class="label">
           Descripción
         </span>
         {{ learning.Description }}
       </p>
       <p v-if="(learning.Note)">
-        <span>
+        <span class="label">
           Notas
         </span>
-        {{ learning.Note }}
+        {{ learning.Note.Length }}
       </p>
     </div>
   </div>
@@ -90,5 +92,9 @@ watchEffect(async () => {
 }
 .card p:nth-child(3) {
   font-size: 0.8em;
+}
+span{
+  font-weight: 600;
+  font-style: italic;
 }
 </style>

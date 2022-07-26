@@ -3,7 +3,6 @@ import OwnLearnings from '~/components/OwnLearnings.vue'
 const props = defineProps<{ name: string }>()
 const router = useRouter()
 const user = useUserStore()
-const user_id = user.user_id
 const { t } = useI18n()
 
 watchEffect(() => {
@@ -46,7 +45,7 @@ watchEffect(() => {
       </button>
     </div>
     <div>
-      <OwnLearnings :id-usuario="user_id" />
+      <OwnLearnings />
     </div>
   </div>
 </template>

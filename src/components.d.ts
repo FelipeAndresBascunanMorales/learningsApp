@@ -8,6 +8,7 @@ declare module '@vue/runtime-core' {
     Branches: typeof import('./components/Branches.vue')['default']
     Counter: typeof import('./components/Counter.vue')['default']
     Footer: typeof import('./components/Footer.vue')['default']
+    NewLearning: typeof import('./components/NewLearning.vue')['default']
     OwnLearnings: typeof import('./components/OwnLearnings.vue')['default']
     PublicsLearnings: typeof import('./components/PublicsLearnings.vue')['default']
     README: typeof import('./components/README.md')['default']

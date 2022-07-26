@@ -7,6 +7,7 @@ export const useUserStore = defineStore('user', () => {
   const savedName = ref('')
   const password = ref('')
   const token = ref('')
+  const user_id = ref('')
   const previousNames = ref(new Set<string>())
 
   const usedNames = computed(() => Array.from(previousNames.value))
@@ -47,9 +48,10 @@ export const useUserStore = defineStore('user', () => {
     fetch(url, requestOptions)
       .then(response => response.json())
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         token.value = response.token.Result
-        return console.log(token.value)
+        user_id.value = response.newUser.Id
+        return console.log(`en user: ${user_id.value}`)
       })
       .catch((error) => {
         console.log(user_data)
@@ -66,6 +68,7 @@ export const useUserStore = defineStore('user', () => {
     savedName,
     password,
     token,
+    user_id,
   }
 })
 

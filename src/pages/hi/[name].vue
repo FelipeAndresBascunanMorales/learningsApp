@@ -44,8 +44,8 @@ watchEffect(() => {
         {{ t('button.back') }}
       </button>
     </div>
-    <div>
-      <OwnLearnings />
+    <div v-if="user.user_id">
+      <OwnLearnings :user_id="user.user_id" />
     </div>
   </div>
 </template>

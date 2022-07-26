@@ -5,19 +5,19 @@ You can switch between the two branches.
 
 <script setup>
 import { ref, watchEffect } from 'vue'
-const user = useUserStore()
-const nuevouserid = user.token
+// const user = useUserStore()
+// const nuevouserid = ref(user.user_id)
+const props = defineProps(['user_id'])
 
 // console.log(props.idUsuario)
 
 // watchEffect(() => {
 //   const nuevouserid = user.token
 // })
-console.log(nuevouserid)
-const url_local = `https://localhost:7032/api/learnings/user/${user.token}`
-const API_URL = `https://learningsapi.azurewebsites.net/api/learnings/user/${user.token}`
-
-const learnings = ref(null)
+// console.log(`id id id ${nuevouserid.value}`)
+const url_local = `https://localhost:7032/api/learnings/user/${props.user_id}`
+const API_URL = `https://learningsapi.azurewebsites.net/api/learnings/user/${props.user_id}`
+const ownLearnings = ref(null)
 // const branches = ['main', 'v2-compat']
 
 // const currentBranch = ref(branches[0])
@@ -27,14 +27,15 @@ watchEffect(async () => {
   // this effect will run immediately and then
   // re-run whenever currentBranch.value changes
   const url = API_URL
-  learnings.value = await (await fetch(url)).json()
+  ownLearnings.value = await (await fetch(url)).json()
 })
 </script>
 
 <template>
   <h1>Mis Learnings</h1>
+  {{ ownLearnings }}
   <div>
-    <div v-for="learning in learnings" :key="learning.Id" class="card">
+    <div v-for="learning in ownLearnings" :key="learning.Id" class="card">
       <p id="name">
         <a :href="learning.Link" target="_blank">
           {{ learning.ContentName }}

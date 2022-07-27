@@ -12,4 +12,6 @@ intro:
   aka: También conocido como
   whats-your-name: correo
   pass: password
+form:
+  title: titulo del contenido
 not-found: No se ha encontrado

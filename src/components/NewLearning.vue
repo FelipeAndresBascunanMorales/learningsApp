@@ -4,61 +4,49 @@ We can create two-way bindings between state and form inputs using the v-model d
 
 <script setup>
 import { ref } from 'vue'
+const props = defineProps(['user_id'])
 
-const text = ref('Edit me')
-const checked = ref(true)
-const checkedNames = ref(['Jack'])
-const picked = ref('One')
-const selected = ref('A')
-const multiSelected = ref(['A'])
+const { t } = useI18n()
+
+const Id = ref(null)
+const UserId = ref('62df5357460038529cd07141')
+const ContentName = ref('')
+const Category = ref('Programación')
+const Description = ref('Aprendiendo de front para hacer el proyecto de Base de Datos')
+const favicon = ref('http://www.google.com/s2/favicons?domain=https://vueschool.io')
+const Link = ref('https://vueschool.io/courses?filter=premium-courses')
+const Priority = ref('3')
+const Difficulty = ref('3')
+const EstimatedTime = ref('2 semanas')
+const Completed = ref(false)
+const Public = ref(true)
+const Note = ref([])
 </script>
 
 <template>
-  <h2>Text Input</h2>
-  <input v-model="text"> {{ text }}
+  <div class="modal">
+    <div
+      class="modal-background"
+      @click="hideNewLearning"
+    >
+      close x
+    </div>
+    <h4>crear</h4>
 
-  <h2>Checkbox</h2>
-  <input id="checkbox" v-model="checked" type="checkbox">
-  <label for="checkbox">Checked: {{ checked }}</label>
-
-  <!--
-    multiple checkboxes can bind to the same
-    array v-model value
-  -->
-  <h2>Multi Checkbox</h2>
-  <input id="jack" v-model="checkedNames" type="checkbox" value="Jack">
-  <label for="jack">Jack</label>
-  <input id="john" v-model="checkedNames" type="checkbox" value="John">
-  <label for="john">John</label>
-  <input id="mike" v-model="checkedNames" type="checkbox" value="Mike">
-  <label for="mike">Mike</label>
-  <p>Checked names: <pre>{{ checkedNames }}</pre></p>
-
-  <h2>Radio</h2>
-  <input id="one" v-model="picked" type="radio" value="One">
-  <label for="one">One</label>
-  <br>
-  <input id="two" v-model="picked" type="radio" value="Two">
-  <label for="two">Two</label>
-  <br>
-  <span>Picked: {{ picked }}</span>
-
-  <h2>Select</h2>
-  <select v-model="selected">
-    <option disabled value="">
-      Please select one
-    </option>
-    <option>A</option>
-    <option>B</option>
-    <option>C</option>
-  </select>
-  <span>Selected: {{ selected }}</span>
-
-  <h2>Multi Select</h2>
-  <select v-model="multiSelected" multiple style="width:100px">
-    <option>A</option>
-    <option>B</option>
-    <option>C</option>
-  </select>
-  <span>Selected: {{ multiSelected }}</span>
+    <label class="" for="input_name"> Titulo</label>
+    <input
+      id="input_content_name"
+      v-model="ContentName"
+      :placeholder="t('form.title')"
+      :aria-label="t('form.title')"
+      type="text"
+      autocomplete="false"
+      p="x4 y2"
+      w="250px"
+      text="center"
+      bg="#fafafa"
+      border="~ rounded gray-200 dark:gray-700"
+      outline="none active:none"
+    >
+  </div>
 </template>

@@ -5,11 +5,13 @@ button:
   home: Home
   toggle_dark: Toggle dark mode
   toggle_langs: Change languages
+form:
+  title: content title
 intro:
+  aka: Also known as
   desc: Inicia Sesión para que accedas a tus propios learnings
   dynamic-route: Demo of dynamic route
   hi: Hi, {name}!
-  aka: Also known as
-  whats-your-name: Correo
   pass: password
+  whats-your-name: Correo
 not-found: Not found

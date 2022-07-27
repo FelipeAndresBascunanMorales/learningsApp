@@ -22,7 +22,14 @@ const ownLearnings = ref(null)
 
 // const currentBranch = ref(branches[0])
 // const commits = ref(null)
+const newLearningvisible = ref(false)
 
+const showNewLearning = async () => {
+  newLearningvisible.value = true
+}
+const hideNewLearning = async () => {
+  newLearningvisible.value = false
+}
 watchEffect(async () => {
   // this effect will run immediately and then
   // re-run whenever currentBranch.value changes
@@ -33,36 +40,48 @@ watchEffect(async () => {
 
 <template>
   <h1>Mis Learnings</h1>
-  {{ ownLearnings }}
+  <NewLearning v-if="newLearningvisible" id="modal" class="modal" :user_id="props.user_id" />
   <div>
-    <div v-for="learning in ownLearnings" :key="learning.Id" class="card">
-      <p id="name">
-        <a :href="learning.Link" target="_blank">
-          {{ learning.ContentName }}
-        </a>
-      </p>
-      <p id="category">
-        <span class="label">
-          Categoria
-        </span>
-        {{ learning.Category }}
-      </p>
-      <p>
-        {{ learning.favicon }}
-      </p>
-      <p>
-        <span class="label">
-          Descripción
-        </span>
-        {{ learning.Description }}
-      </p>
-      <p v-if="(learning.Note)">
-        <span class="label">
-          Notas
-        </span>
-        {{ learning.Note.Length }}
-      </p>
+    <div class="card">
+      <button
+        @click="showNewLearning"
+      >
+        + Nuevo Contenido
+      </button>
     </div>
+  </div>
+  <div v-for="learning in ownLearnings" :key="learning.Id" class="card">
+    <p id="name">
+      <a :href="learning.Link" target="_blank">
+        {{ learning.ContentName }}
+      </a>
+    </p>
+    <p id="category">
+      <span class="label">
+        Categoria
+      </span>
+      {{ learning.Category }}
+    </p>
+    <img height="32" width="32" :src="learning.favicon">
+    <p>
+      <span class="label">
+        Descripción
+      </span>
+      {{ learning.Description }}
+    </p>
+    <p v-if="(learning.Note)">
+      <span>
+        Apuntes = {{ learning.Note.length }}
+      </span>
+    </p>
+    <p v-else>
+      sin notas
+    </p>
+
+    <label for="completed">
+      <input v-model="learning.Completed" type="checkbox">
+      Completado
+    </label>
   </div>
 </template>
 
@@ -97,5 +116,20 @@ watchEffect(async () => {
 span{
   font-weight: 600;
   font-style: italic;
+}
+#modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  background-color: #a1d1d1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
 }
 </style>

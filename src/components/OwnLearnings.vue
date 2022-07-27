@@ -30,19 +30,33 @@ const showNewLearning = async () => {
 const hideNewLearning = async () => {
   newLearningvisible.value = false
 }
+const newNote = ref(false)
+
+const showNote = async () => {
+  newNote.value = true
+}
+const hideNote = async () => {
+  newNote.value = false
+}
 watchEffect(async () => {
   // this effect will run immediately and then
   // re-run whenever currentBranch.value changes
   const url = API_URL
   ownLearnings.value = await (await fetch(url)).json()
+  const newLearning = await (await fetch(url_local)).json()
+  ownLearnings.value.push(newLearning)
+  // console.log(ownLearnings.value)
+  deleteLearning(newLearning.id)
 })
 </script>
 
 <template>
   <h1>Mis Learnings</h1>
-  <NewLearning v-if="newLearningvisible" id="modal" class="modal" :user_id="props.user_id" />
+  <div @click="hideNewLearning">
+    <NewLearning v-if="newLearningvisible" id="modal" class="modal" :user_id="props.user_id" />
+  </div>
   <div>
-    <div class="card">
+    <div class="card btn">
       <button
         @click="showNewLearning"
       >
@@ -77,11 +91,22 @@ watchEffect(async () => {
     <p v-else>
       sin notas
     </p>
-
+    <button v-if="!newNote" class="btn" @click="showNote">
+      agregar apuntes
+    </button>
+    <div v-if="newNote">
+      <input id="input" class="input">
+      <button class="btn" @click="hideNote">
+        agregar
+      </button>
+    </div>
     <label for="completed">
       <input v-model="learning.Completed" type="checkbox">
       Completado
     </label>
+    <button @click="deleteLearning(learning.Id)">
+      Eliminar
+    </button>
   </div>
 </template>
 
@@ -131,5 +156,9 @@ span{
   justify-content: center;
   align-items: center;
   border-radius: 10px;
+}
+#input {
+  margin-right: 1em;
+  color: rgb(20, 20, 20);
 }
 </style>
